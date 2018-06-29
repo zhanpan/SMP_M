@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pms.code.entity.base.User">
+		<resultMap type="com.pms.code.entity.base.User" id="UserMap">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="pass_word" property="passWord" jdbcType="VARCHAR" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="gm_type" property="gm_type" jdbcType="INTEGER" />
+		<result column="pid" property="pid" jdbcType="INTEGER" />
+		<result column="p_m_id" property="pmid" jdbcType="INTEGER" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="createtime" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<!-- 用户登录查询 -->
+	<select id="selUserByNamePwd" parameterType="hashmap" resultMap="UserMap">
+		select * from t_user where user_name=#{userName} and pass_word=#{passWord}
+	</select>
+	
+	<!-- 忘记密码查询用户 -->
+	<select id="selUserByName" parameterType="hashmap" resultMap="UserMap">
+		select * from t_user where user_name=#{userName}
+	</select>
+	
+	<update id="updatePassWord" parameterType="hashmap">
+		update t_user set pass_word=#{passWord} where id=#{id}
+	</update>
+	
+	
+</mapper> 

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pms.code.entity.base.PropertyManagementDepartment">
+	<!-- 查询物业管理部分信息 -->
+	<select id="queryPropertyManagementDepartmentList" parameterType="hashmap" resultType="PropertyManagementDepartment">
+		select * from t_property_management_department
+		where pid=#{pid}
+		order by createtime DESC
+		LIMIT #{startCount},#{pageSize}
+	</select>
+
+	<!-- 查询物业办事处总数 -->
+	<select id="queryPropertyManagementDepartmentTotal"
+		parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select
+		COUNT(*) from t_property_management_department
+		where pid=#{pid}
+	</select>
+
+	<!-- 查询小区信息 -->
+	<select id="queryPropertyManagementDepartmentById"
+		parameterType="java.lang.Integer" resultType="PropertyManagementDepartment">
+		select * from
+		t_property_management_department where id=#{id}
+	</select>
+
+	<!-- 添加小区信息 -->
+	<insert id="insertPropertyManagementDepartment" parameterType="PropertyManagementDepartment">
+		insert into t_property_management_department
+		(pid,management_department_name,contact_number,province,city,area)
+		values(#{pid},#{management_department_name},#{contact_number},#{province},#{city},#{area})
+	</insert>
+
+	<!-- 删除小区信息 -->
+	<delete id="deletePropertyManagementDepartment" parameterType="Integer[]">
+		delete from t_property_management_department where id in
+		<foreach collection="array" item="id" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<!-- 保存物业管理修改 -->
+	<update id="saveEditPropertyManagementDepartment" parameterType="PropertyManagementDepartment">
+		update t_property_management_department set
+		management_department_name=#{management_department_name},contact_number=#{contact_number},province=#{province},city=#{city},area=#{area}
+		where id=#{id}
+	</update>
+	
+	<!-- 查询物业公司下的物业小区管理员信息 -->
+	<select id="queryAllPropertyManagementDepartmentList" parameterType="hashmap" resultType="PropertyManagementDepartment">
+		select * from t_property_management_department
+		where pid=#{pid} ORDER BY createtime DESC
+	</select>
+</mapper>
